@@ -1,7 +1,7 @@
 const Client = require ('../models/client.model');
 
 module.exports = {
-  listar( req, res ) {
+  list( req, res ) {
     Client
       .find()
       .then(clients =>{
