@@ -1,12 +1,35 @@
 const { Schema, model } = require('mongoose');
 
 const clientSchema = new Schema ({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   lastName: String,
-  password: String,
-  email: String,
-  identification: String,
-  
+  password: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String, 
+    required: true,
+    validate: {
+      async validator(email){
+        try{
+          const client = await model.Client.findOne({ email });
+          return !client;
+        }
+        catch(err){
+          return false;
+        }
+      },
+      message: 'El correo ya esta en uso',
+    }
+  },
+  terms: {
+    type: Boolean,
+    required: true,
+  },
   },{
     timestamps: true,
 });

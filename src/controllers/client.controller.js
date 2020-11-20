@@ -1,4 +1,5 @@
 const Client = require ('../models/client.model');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   list( req, res ) {
@@ -50,5 +51,21 @@ module.exports = {
       .catch(err =>{
         res.status(400).json({ message: 'Client could not be deleted' })
       })
-  }
+  },
+
+  async signup( req, res ){
+    try{
+      const { name, email, password, terms } = req.body;
+      const client = await Client.create({ name, email, password, terms })
+      const token = jwt.sign(
+        { id: client._id },
+        process.env.SECRET,
+        { expiresIn: 60*60*24 }
+      );
+      res.status(201).json({ token })
+    }
+    catch(err){
+      res.status(400).json({ message: err.message})
+    }
+  },
 }
