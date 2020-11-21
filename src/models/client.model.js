@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, models } = require('mongoose');
 
 const clientSchema = new Schema ({
   name: {
@@ -16,7 +16,7 @@ const clientSchema = new Schema ({
     validate: {
       async validator(email){
         try{
-          const client = await model.Client.findOne({ email });
+          const client = await models.Client.findOne({ email });
           return !client;
         }
         catch(err){

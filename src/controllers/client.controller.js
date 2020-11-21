@@ -25,22 +25,6 @@ module.exports = {
       }) 
   },
 
-  create( req, res ){
-    const data = req.body;
-    const newClient = {
-      ...data, 
-      published: Date.now()
-    };
-    Client
-      .create(newClient)
-      .then(client =>{
-        res.status(201).json({ message: 'Client create', data:client, })
-      })
-      .catch(err =>{
-        res.status(400).json({ message: 'Client could not be created' })
-      })
-  },
-
   destroy( req,res ){
     const { clientId } = req.params;
     Client
@@ -60,7 +44,7 @@ module.exports = {
       const token = jwt.sign(
         { id: client._id },
         process.env.SECRET,
-        { expiresIn: 60*60*24 }
+        { expiresIn: 3 }
       );
       res.status(201).json({ token })
     }
