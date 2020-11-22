@@ -10,8 +10,9 @@ exports.auth = ( req, res, next ) =>{
     if(!token){
       throw new Error('Su sesion expiró');
     }
-    const { id } = jwt.verify(token, process.env.SECRET);
-    req.client = id;
+    const { clientId, RestaurantId } = jwt.verify(token, process.env.SECRET);
+    req.client = clientId;
+    req.Restaurant = RestaurantId;
     next();
   }
   catch(err){
