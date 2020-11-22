@@ -29,6 +29,12 @@ const restaurantSchema = new Schema ({
     type: Boolean,
     required: true,
   },
+  nit: {
+    type: String,
+  },
+  deposit: {
+    type: Number,
+  }
 }, {
   timestamps: true,
 });

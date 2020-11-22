@@ -1,4 +1,4 @@
-const Client = require ('../models/client.model');
+const Client = require('../models/client.model');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -6,7 +6,7 @@ module.exports = {
     Client
       .find()
       .then(clients =>{
-        res.status(200).json({ message: 'Client found', data: clients, })
+        res.status(200).json({ message: 'Clients found', data: clients, })
       }) 
       .catch(err =>{
         res.status(404).json({ message: 'Client not found' })
