@@ -15,7 +15,6 @@ app.use(cors());
 
 app.use('/clients', clientsRouter);
 app.get('/', auth, ( req, res ) => {
-  console.log(req.client);
   res.sendStatus(200);
 });
 
