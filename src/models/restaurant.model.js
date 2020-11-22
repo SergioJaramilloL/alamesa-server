@@ -1,23 +1,22 @@
 const { Schema, model, models } = require('mongoose');
 
-const clientSchema = new Schema ({
+const restaurantSchema = new Schema ({
   name: {
     type: String,
     required: true,
   },
-  lastName: String,
   password: {
     type: String,
     required: true,
   },
   email: {
-    type: String, 
+    type: String,
     required: true,
     validate: {
       async validator(email){
         try{
-          const client = await models.Client.findOne({ email });
-          return !client;
+          const restaurant = await models.Restaurant.findOne({ email });
+          return !restaurant;
         }
         catch(err){
           return false;
@@ -30,10 +29,16 @@ const clientSchema = new Schema ({
     type: Boolean,
     required: true,
   },
-  },{
-    timestamps: true,
+  nit: {
+    type: String,
+  },
+  deposit: {
+    type: Number,
+  }
+}, {
+  timestamps: true,
 });
 
-const Client = model('Client', clientSchema)
+const Restaurant = model('Restaurant', restaurantSchema)
 
-module.exports = Client
+module.exports = Restaurant

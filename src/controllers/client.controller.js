@@ -1,8 +1,7 @@
-const Client = require ('../models/client.model');
+const Client = require('../models/client.model');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-
   async signup( req, res ){
     try{
       const { name, email, password, terms } = req.body;
