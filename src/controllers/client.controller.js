@@ -1,54 +1,79 @@
-const Client = require ('../models/client.model');
+const Client = require('../models/client.model');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
-  list( req, res ) {
-    Client
-      .find()
-      .then(clients =>{
-        res.status(200).json({ message: 'Client found', data: clients, })
-      }) 
-      .catch(err =>{
-        res.status(404).json({ message: 'Client not found' })
-      })
+  async signup( req, res ){
+    try{
+      const { name, email, password, terms } = req.body;
+      const client = await Client.create({ name, email, password, terms })
+      const token = jwt.sign(
+        { id: client._id },
+        process.env.SECRET,
+        { expiresIn: 60*60*24 }
+      );
+      res.status(201).json({ token })
+    }
+    catch(err){
+      res.status(400).json({ message: err.message})
+    }
   },
 
-  show( req, res ) {
-    const { clientId } = req.params;
-    Client
-      .findById( clientId )
-      .then( client => {
+  async list( req, res ) {
+    try {
+      const clients = await Client.find()
+
+      if(!clients) {
+        throw new Error('Client not found')
+      }
+
+      res.status(200).json({ message: 'Client found', data: clients, })
+    }catch(error) {
+        res.status(404).json({ message: 'Client not found' })
+      }
+  },
+
+  async show( req, res ) {
+    try {
+      const { clientId } = req.params;
+      const client = await Client.findById( clientId )
+
+      if(!client) {
+        throw new Error('Client not found')
+      }
         res.status(200).json({ message: 'Client found', data: client })
-      })
-      .catch( err => {
+    }
+      catch(error) {
         res.status(404).json({ message: 'Client not found' })
-      }) 
+      }
   },
 
-  create( req, res ){
-    const data = req.body;
-    const newClient = {
-      ...data, 
-      published: Date.now()
-    };
-    Client
-      .create(newClient)
-      .then(client =>{
-        res.status(201).json({ message: 'Client create', data:client, })
-      })
-      .catch(err =>{
-        res.status(400).json({ message: 'Client could not be created' })
-      })
+  async update( req, res ) {
+    try{
+      const { clientId } = req.params
+      const client = await Client.findByIdAndUpdate()( clientId, req.body, { new: true})
+
+      if(!client) {
+        throw new Error('Could not update that client')
+      }
+      res.status(200).json({ message: 'Client updated', data: client})
+
+    } catch(error) {
+      res.status(400).json({ message: 'Client could not be updated'})
+    }
   },
 
-  destroy( req,res ){
-    const { clientId } = req.params;
-    Client
-      .findByIdAndDelete(clientId)
-      .then( client => {
+  async destroy( req,res ){
+    try {
+      const { clientId } = req.params;
+      const client = await Client.findByIdAndDelete(clientId)
+
+      if(!clientId){
+        throw new Error('Could not update Client')
+      }
         res.status(200).json({ message: 'Cliente deleted', data:client, })
-      })
-      .catch(err =>{
+    }catch(err) {
         res.status(400).json({ message: 'Client could not be deleted' })
-      })
-  }
+      }
+  },
+
 }
