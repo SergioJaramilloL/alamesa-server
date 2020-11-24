@@ -18,8 +18,6 @@ app.use('/clients', clientsRouter);
 app.use('/restaurants', restaurantsRouter);
 
 app.get('/', auth, ( req, res ) => {
-  console.log(req.client);
-  console.log(req.restaurant);
   res.sendStatus(200);
 });
 
