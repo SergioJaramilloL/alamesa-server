@@ -19,7 +19,7 @@ module.exports = {
     }
   },
 
-  async list( req, res ) {
+    async list( req, res ) {
     try {
       const restaurants = await Restaurant.find();
 
@@ -76,5 +76,5 @@ module.exports = {
       res.status(400).json({ message: 'Restaurant could not be deleted' })
     }
   },
-
 }
+
