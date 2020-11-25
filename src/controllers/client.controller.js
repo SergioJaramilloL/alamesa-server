@@ -62,7 +62,6 @@ module.exports = {
   async show( req, res ) {
     try {
       const client = await Client.findById( req.client )
-
       if(!client) {
         throw new Error('Client not found')
       }
