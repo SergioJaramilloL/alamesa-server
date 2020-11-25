@@ -7,7 +7,7 @@ module.exports = {
       const { name, email, password, terms } = req.body;
       const client = await Client.create({ name, email, password, terms })
       const token = jwt.sign(
-        { id: client._id },
+        { id: client._id, type:'client' },
         process.env.SECRET,
         { expiresIn: 60*60*24 }
       );
@@ -25,8 +25,7 @@ module.exports = {
       if(!clients) {
         throw new Error('Client not found')
       }
-
-      res.status(200).json({ message: 'Client found', data: clients, })
+      res.status(200).json({ message: 'Clients list found', data: clients, })
     }catch(error) {
         res.status(404).json({ message: 'Client not found' })
       }
@@ -34,9 +33,8 @@ module.exports = {
 
   async show( req, res ) {
     try {
-      const { clientId } = req.params;
-      const client = await Client.findById( clientId )
-
+      const client = await Client.findById( req.client )
+      
       if(!client) {
         throw new Error('Client not found')
       }

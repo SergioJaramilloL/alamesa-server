@@ -12,12 +12,9 @@ exports.auth = ( req, res, next ) =>{
     }
     const { id } = jwt.verify(token, process.env.SECRET);
     req.client = id;
-    req.restaurant = id;
     next();
   }
   catch(err){
     res.status(401).json({message: err.message});
   }
-
-
 }

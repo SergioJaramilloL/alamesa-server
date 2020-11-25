@@ -1,10 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { connect } = require('./src/db');
 const clientsRouter = require('./src/routes/client');
 const restaurantsRouter = require('./src/routes/restaurant')
 const { auth } = require( './src/utils/auth');
-require('dotenv').config();
 
 const port = 8080;
 
@@ -18,8 +18,6 @@ app.use('/clients', clientsRouter);
 app.use('/restaurants', restaurantsRouter);
 
 app.get('/', auth, ( req, res ) => {
-  console.log(req.client);
-  console.log(req.restaurant);
   res.sendStatus(200);
 });
 
