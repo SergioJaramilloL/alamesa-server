@@ -10,13 +10,18 @@ exports.auth = ( req, res, next ) =>{
     if(!token){
       throw new Error('Su sesion expiró token');
     }
-    const { id } = jwt.verify(token, process.env.SECRET);
-    req.client = id;
+    const { id, userType } = jwt.verify(token, process.env.SECRET);
+
+    if( userType === 'clients' ) {
+      req.client = id;
+    } else if( userType === 'restaurants' ) {
+      req.restaurant = id;
+    } else{
+      throw new Error( 'El tipo de usuario no existe')
+    }
     next();
   }
   catch(err){
     res.status(401).json({message: err.message});
   }
-
-
 }
