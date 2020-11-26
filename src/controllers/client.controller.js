@@ -52,7 +52,6 @@ module.exports = {
       if(!clients) {
         throw new Error('Client not found')
       }
-      
       res.status(200).json({ message: 'Clients list found', data: clients, })
     }catch(error) {
         res.status(404).json({ message: 'Client not found' })
