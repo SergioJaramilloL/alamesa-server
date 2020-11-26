@@ -25,10 +25,6 @@ const restaurantSchema = new Schema ({
       message: 'El correo ya está en uso',
     }
   },
-  userType: {
-    type: String,
-    required: true,
-  },
   terms: {
     type: Boolean,
     required: true,
