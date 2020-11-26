@@ -8,5 +8,4 @@ router.route('/sign-up').post(restaurantController.signup);
 router.route('/:restaurantId').put(restaurantController.update);
 router.route('/:restaurantId').delete(restaurantController.destroy);
 
-
 module.exports = router;
