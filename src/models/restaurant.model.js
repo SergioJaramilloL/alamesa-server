@@ -27,7 +27,6 @@ const restaurantSchema = new Schema ({
   },
   userType: {
     type: String,
-    required: true,
   },
   terms: {
     type: Boolean,

@@ -28,7 +28,6 @@ const clientSchema = new Schema ({
   },
   userType: {
     type: String,
-    required: true, 
   },
   terms: {
     type: Boolean,
