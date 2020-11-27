@@ -34,7 +34,14 @@ const restaurantSchema = new Schema ({
   },
   deposit: {
     type: Number,
-  }
+  },
+  paymentMethod: {
+    type: String,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
 }, {
   timestamps: true,
 });

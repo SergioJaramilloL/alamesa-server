@@ -7,7 +7,7 @@ module.exports = {
       const { name, email, password, terms } = req.body;
       const client = await Client.create({ name, email, password, terms })
       const token = jwt.sign(
-        { id: client._id, type:'client' },
+        { id: client._id },
         process.env.SECRET,
         { expiresIn: 60*60*24 }
       );

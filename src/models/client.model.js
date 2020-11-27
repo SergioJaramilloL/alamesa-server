@@ -30,6 +30,15 @@ const clientSchema = new Schema ({
     type: Boolean,
     required: true,
   },
+  birthDate: {
+    type: String,
+  },
+  paymentMethod: {
+    type: String,
+  },
+  address: {
+    type: String,
+  }
   },{
     timestamps: true,
 });
