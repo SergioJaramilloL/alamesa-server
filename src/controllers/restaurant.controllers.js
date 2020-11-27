@@ -2,7 +2,24 @@ const Restaurant = require('../models/restaurant.model');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-  async list( req, res ) {
+
+  async signup( req, res ){
+    try{
+      const { name, email, password, userType, terms, nit, deposit } = req.body;
+      const restaurant = await Restaurant.create({ name, email, password, userType, terms, nit, deposit })
+      const token = jwt.sign(
+        { id: restaurant._id, userType: restaurant.userType },
+        process.env.SECRET,
+        { expiresIn: 3 }
+      );
+      res.status(201).json({ token })
+    }
+    catch(err){
+      res.status(400).json({ message: err.message })
+    }
+  },
+
+    async list( req, res ) {
     try {
       const restaurants = await Restaurant.find();
 
@@ -18,8 +35,7 @@ module.exports = {
 
   async show( req, res ) {
     try {
-      const { restaurantId } = req.params;
-      const restaurant = await Restaurant.findById(restaurantId);
+      const restaurant = await Restaurant.findById( req.restaurant );
       
       if(!restaurant){
         throw new Error('Could not find restaurant with the requested id')
@@ -60,20 +76,5 @@ module.exports = {
       res.status(400).json({ message: 'Restaurant could not be deleted' })
     }
   },
-
-  async signup( req, res ){
-    try{
-      const { name, email, password, terms, nit, deposit } = req.body;
-      const restaurant = await Restaurant.create({ name, email, password, terms, nit, deposit })
-      const token = jwt.sign(
-        { id: restaurant._id },
-        process.env.SECRET,
-        { expiresIn: 3 }
-      );
-      res.status(201).json({ token })
-    }
-    catch(err){
-      res.status(400).json({ message: err.message })
-    }
-  },
 }
+
