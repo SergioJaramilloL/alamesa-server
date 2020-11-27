@@ -26,9 +26,6 @@ const clientSchema = new Schema ({
       message: 'El correo ya está en uso',
     }
   },
-  userType: {
-    type: String,
-  },
   terms: {
     type: Boolean,
     required: true,
