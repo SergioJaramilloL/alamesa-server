@@ -10,7 +10,7 @@ module.exports = {
       const encPassword = await bcrypt.hash( password, 8)
       const client = await Client.create({ name, email, password: encPassword, terms })
       const token = jwt.sign(
-        { id: client._id, userType: userType },
+        { id: client._id, userType },
         process.env.SECRET,
         { expiresIn: 60*60*24 }
       );
