@@ -5,10 +5,6 @@ const restaurantSchema = new Schema ({
     type: String,
     required: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,
@@ -25,11 +21,27 @@ const restaurantSchema = new Schema ({
       message: 'El correo ya está en uso',
     }
   },
+  password: {
+    type: String,
+    required: true,
+  },
   terms: {
     type: Boolean,
     required: true,
   },
+  address: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
   nit: {
+    type: String,
+  },
+  scheduleFrom: {
+    type: String,
+  },
+  scheduleTo: {
     type: String,
   },
   deposit: {
@@ -38,14 +50,10 @@ const restaurantSchema = new Schema ({
   paymentMethod: {
     type: String,
   },
-  phone: {
-    type: String,
-    required: true,
-  },
 }, {
   timestamps: true,
 });
 
 const Restaurant = model('Restaurant', restaurantSchema)
 
-module.exports = Restaurant
+module.exports = Restaurant;

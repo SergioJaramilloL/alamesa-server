@@ -2,11 +2,10 @@ const Restaurant = require('../models/restaurant.model');
 const jwt = require('jsonwebtoken');
 
 module.exports = {
-
   async signup( req, res ){
     try{
       const { name, email, password, userType, terms, nit, deposit } = req.body;
-      const restaurant = await Restaurant.create({ name, email, password, terms, nit, deposit })
+      const restaurant = await Restaurant.create({ name, email, password, terms })
       const token = jwt.sign(
         { id: restaurant._id, userType },
         process.env.SECRET,
