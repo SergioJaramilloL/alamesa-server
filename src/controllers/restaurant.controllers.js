@@ -6,9 +6,9 @@ module.exports = {
   async signup( req, res ){
     try{
       const { name, email, password, userType, terms, nit, deposit } = req.body;
-      const restaurant = await Restaurant.create({ name, email, password, userType, terms, nit, deposit })
+      const restaurant = await Restaurant.create({ name, email, password, terms, nit, deposit })
       const token = jwt.sign(
-        { id: restaurant._id, userType: restaurant.userType },
+        { id: restaurant._id, userType },
         process.env.SECRET,
         { expiresIn: 3 }
       );
