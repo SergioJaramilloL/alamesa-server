@@ -8,9 +8,9 @@ module.exports = {
     try{
       const { name, email, password, userType, terms, nit, deposit } = req.body;
       const encPassword = await bcrypt.hash( password, 8)
-      const restaurant = await Restaurant.create({ name, email, password: encPassword, userType, terms, nit, deposit })
+      const restaurant = await Restaurant.create({ name, email, password: encPassword, terms, nit, deposit })
       const token = jwt.sign(
-        { id: restaurant._id, userType: restaurant.userType },
+        { id: restaurant._id, userType },
         process.env.SECRET,
         { expiresIn: 3 }
       );
@@ -28,8 +28,9 @@ module.exports = {
       if( !restaurant ) {
         throw new Error( 'Usuario o contraseña invalida' )
       }
+      const restaurant = await Restaurant.create({ name, email, password, terms, nit, deposit })
       const token = jwt.sign(
-        { id: restaurant._id, userType: restaurant.userType },
+        { id: restaurant._id, userType },
         process.env.SECRET,
         { expiresIn: 3 }
       );
