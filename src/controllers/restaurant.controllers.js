@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 module.exports = {
   async signup( req, res ){
     try{
-      const { name, email, password, userType, terms, nit, deposit } = req.body;
+      const { name, email, password, userType, terms } = req.body;
       const restaurant = await Restaurant.create({ name, email, password, terms })
       const token = jwt.sign(
         { id: restaurant._id, userType },

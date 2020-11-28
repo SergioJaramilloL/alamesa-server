@@ -36,7 +36,7 @@ const clientSchema = new Schema ({
     type: String,
   },
   phone: {
-    type: Boolean,
+    type: String,
   },
   identification: {
     type: String,
