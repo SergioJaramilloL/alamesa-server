@@ -28,7 +28,10 @@ module.exports = {
       if( !restaurant ) {
         throw new Error( 'Usuario o contraseña invalida' )
       }
-      const restaurant = await Restaurant.create({ name, email, password, terms, nit, deposit })
+      const isValid = await bcrypt.compare( password, restaurant.password )
+      if(!isValid) {
+        throw new Error( 'Usuario o contraseña invalida' )
+      }
       const token = jwt.sign(
         { id: restaurant._id, userType },
         process.env.SECRET,
