@@ -33,7 +33,7 @@ module.exports = {
         throw new Error( 'Usuario o contraseña invalida' )
       }
       const token = jwt.sign(
-        { id: client._id, userType: userType},
+        { id: client._id, userType },
         process.env.SECRET,
         { expiresIn: 60*60*24}
       )
