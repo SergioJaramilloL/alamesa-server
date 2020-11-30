@@ -12,7 +12,7 @@ module.exports = {
       const token = jwt.sign(
         { id: restaurant._id, userType },
         process.env.SECRET,
-        { expiresIn: 3 }
+        { expiresIn: 60*60*24 }
       );
       res.status(201).json({ token })
     }
@@ -34,11 +34,8 @@ module.exports = {
       }
       const token = jwt.sign(
         { id: restaurant._id, userType },
-      const restaurant = await Restaurant.create({ name, email, password, terms, nit, deposit })
-      const token = jwt.sign(
-        { id: restaurant._id, userType },
         process.env.SECRET,
-        { expiresIn: 3 }
+        { expiresIn: 60*60*24 }
       );
       res.status(201).json({ token })
     }
