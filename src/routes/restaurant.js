@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const restaurantController = require('../controllers/restaurant.controllers');
+const restaurantController = require('../controllers/restaurant.controller');
 const { auth } = require('../utils/auth')
 
 router.route('/sign-up').post(restaurantController.signup);
