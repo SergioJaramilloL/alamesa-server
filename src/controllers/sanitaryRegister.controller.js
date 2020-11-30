@@ -12,9 +12,9 @@ module.exports = {
     const { sanitaryRegisterId } = req.params;
 
     const sanitaryRegister = await SanitaryRegister.findById(sanitaryRegisterId).populate({
-      path: 'client',
+      path: 'user',
       select: 'sanitaryRegisters',
-      populate: { path: 'sanitaryRegister' }
+      populate: { path: 'sanitaryRegisters' }
     })
     res.status(200).json(SanitaryRegisters)
   },
@@ -26,7 +26,7 @@ module.exports = {
       }
       const sanitaryRegister = await SanitaryRegister.create({ ...req.body, user: client })
 
-      client.sanitaryRegister.push(sanitaryRegister);
+      client.sanitaryRegisters.push(sanitaryRegister);
       await client.save({ validateBeforeSave: false })
 
       res.status(201).json(sanitaryRegister)

@@ -17,17 +17,19 @@ const sanitaryRegisterSchema = new Schema ({
   question4HealthWorker: {
     type: Boolean,
   },
-  client: {
-    type: { type: Schema.Types.ObjectId, ref: 'Client'},
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'Client',
     required: true,
   },
-  reservation: {
-    type: { type: Schema.Types.ObjectId, ref: 'Reservation'},
-    required: true,
-  },
-  companion: {
-    type: { type: Schema.Types.ObjectId, ref: 'Companion'},
-  },
+  // reservation: {
+  //   type: Schema.Types.ObjectId, 
+  //   ref: 'Reservation',
+  //   required: true,
+  // },
+  // companion: {
+  //   type: [{ type: Schema.Types.ObjectId, ref: 'Companion'}],
+  // },
 }, {
   timestamps: true,
 });

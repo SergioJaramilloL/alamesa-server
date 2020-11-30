@@ -47,12 +47,13 @@ const clientSchema = new Schema ({
   payType: {
     type: String,
   },
-  sanitaryRegister: {
-    type: { type: Schema.Types.ObjectId, ref: 'SanitaryRegister'},
+  sanitaryRegisters: {
+    type: Schema.Types.ObjectId, 
+    ref: 'SanitaryRegister',
     required: true,
   }
-  },{
-    timestamps: true,
+},{
+  timestamps: true,
 });
 
 const Client = model('Client', clientSchema)
