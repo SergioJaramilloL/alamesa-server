@@ -9,5 +9,4 @@ router.route('/profile').get(auth, clientController.show);
 router.route('/:clientId').put(clientController.update);
 router.route('/:clientId').delete(clientController.destroy);
 
-
 module.exports = router;

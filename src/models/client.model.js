@@ -5,13 +5,11 @@ const clientSchema = new Schema ({
     type: String,
     required: true,
   },
-  lastName: String,
-  password: {
+  lastName: {
     type: String,
-    required: true,
   },
   email: {
-    type: String, 
+    type: String,
     required: true,
     validate: {
       async validator(email){
@@ -26,9 +24,28 @@ const clientSchema = new Schema ({
       message: 'El correo ya está en uso',
     }
   },
+  password: {
+    type: String,
+    required: true,
+  },
   terms: {
     type: Boolean,
     required: true,
+  },
+  address: {
+    type: String,
+  },
+  phone: {
+    type: String,
+  },
+  identification: {
+    type: String,
+  },
+  birthday: {
+    type: Date,
+  },
+  payType: {
+    type: String,
   },
   },{
     timestamps: true,
@@ -36,4 +53,4 @@ const clientSchema = new Schema ({
 
 const Client = model('Client', clientSchema)
 
-module.exports = Client
+module.exports = Client;

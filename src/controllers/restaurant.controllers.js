@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 
 module.exports = {
-
   async signup( req, res ){
     try{
       const { name, email, password, userType, terms, nit, deposit } = req.body;
