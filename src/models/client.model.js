@@ -47,6 +47,10 @@ const clientSchema = new Schema ({
   payType: {
     type: String,
   },
+  sanitaryRegister: {
+    type: { type: Schema.Types.ObjectId, ref: 'SanitaryRegister'},
+    required: true,
+  }
   },{
     timestamps: true,
 });
