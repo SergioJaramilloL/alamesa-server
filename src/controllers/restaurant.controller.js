@@ -87,10 +87,9 @@ module.exports = {
 
   async destroy( req,res ){
     try {
-      const { restaurantId } = req.params;
-      const restaurant = await Restaurant.findByIdAndDelete(restaurantId)
+      const restaurant = await Restaurant.findByIdAndDelete(req.restaurant)
 
-      if(!restaurantId){
+      if(!req.restaurant){
         throw new Error('Could not delete that restaurant')
       }
 
