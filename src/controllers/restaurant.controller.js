@@ -8,6 +8,7 @@ module.exports = {
       const { name, email, password, userType, terms } = req.body;
       const encPassword = await bcrypt.hash( password, 8)
       const restaurant = await Restaurant.create({ name, email, password: encPassword, terms })
+
       const token = jwt.sign(
         { id: restaurant._id, userType },
         process.env.SECRET,
@@ -43,7 +44,7 @@ module.exports = {
     }
   },
 
-  async list( req, res ) {
+    async list( req, res ) {
     try {
       const restaurants = await Restaurant.find();
 
@@ -76,6 +77,7 @@ module.exports = {
       const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, req.body, { new: true })
 
       if(!req.restaurant){
+        
         throw new Error('Could not update that restaurant')
       }
 
