@@ -63,7 +63,7 @@ module.exports = {
     try {
       const client = await Client.findById( req.client )
 
-      if(!req.client) {
+      if(!client) {
         throw new Error('Client not found')
       }
         res.status(200).json({ message: 'Client found', data: client })
@@ -77,7 +77,7 @@ module.exports = {
     try{
       const client = await Client.findByIdAndUpdate( req.client, req.body, { new: true})
 
-      if(!req.client) {
+      if(!client) {
         throw new Error('Could not update that client')
       }
       res.status(200).json({ message: 'Client updated', data: client})
@@ -91,7 +91,7 @@ module.exports = {
     try {
       const client = await Client.findByIdAndDelete(req.client)
 
-      if(!req.client){
+      if(!client){
         throw new Error('Could not update Client')
       }
         res.status(200).json({ message: 'Cliente deleted', data:client, })
