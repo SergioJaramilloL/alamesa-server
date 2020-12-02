@@ -7,6 +7,6 @@ router.route('/sign-in').post(restaurantController.signin);
 router.route('/').get(restaurantController.list);
 router.route('/profile').get(auth, restaurantController.show);
 router.route('/').put(auth, restaurantController.update);
-router.route('/:restaurantId').delete(restaurantController.destroy);
+router.route('/').delete(auth, restaurantController.destroy);
 
 module.exports = router;
