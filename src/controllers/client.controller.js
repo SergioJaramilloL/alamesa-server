@@ -9,6 +9,7 @@ module.exports = {
       const { name, email, password, userType, terms } = req.body;
       const encPassword = await bcrypt.hash( password, 8)
       const client = await Client.create({ name, email, password: encPassword, terms })
+      
       const token = jwt.sign(
         { id: client._id, userType },
         process.env.SECRET,
@@ -75,8 +76,7 @@ module.exports = {
 
   async update( req, res ) {
     try{
-      const { clientId } = req.params
-      const client = await Client.findByIdAndUpdate()( clientId, req.body, { new: true})
+      const client = await Client.findByIdAndUpdate( req.client, req.body, { new: true})
 
       if(!client) {
         throw new Error('Could not update that client')
@@ -90,10 +90,9 @@ module.exports = {
 
   async destroy( req,res ){
     try {
-      const { clientId } = req.params;
-      const client = await Client.findByIdAndDelete(clientId)
+      const client = await Client.findByIdAndDelete(req.client)
 
-      if(!clientId){
+      if(!client){
         throw new Error('Could not update Client')
       }
         res.status(200).json({ message: 'Cliente deleted', data:client, })
