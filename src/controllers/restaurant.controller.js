@@ -75,7 +75,7 @@ module.exports = {
     try {
       const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, req.body, { new: true })
 
-      if(!req.restaurant){
+      if(!restaurant){
         throw new Error('Could not update that restaurant')
       }
 
@@ -89,7 +89,7 @@ module.exports = {
     try {
       const restaurant = await Restaurant.findByIdAndDelete(req.restaurant)
 
-      if(!req.restaurant){
+      if(!restaurant){
         throw new Error('Could not delete that restaurant')
       }
 
