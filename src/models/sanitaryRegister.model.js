@@ -22,14 +22,6 @@ const sanitaryRegisterSchema = new Schema ({
     ref: 'Client',
     required: true,
   },
-  // reservation: {
-  //   type: Schema.Types.ObjectId, 
-  //   ref: 'Reservation',
-  //   required: true,
-  // },
-  // companion: {
-  //   type: [{ type: Schema.Types.ObjectId, ref: 'Companion'}],
-  // },
 }, {
   timestamps: true,
 });

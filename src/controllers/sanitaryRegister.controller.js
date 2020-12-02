@@ -5,10 +5,11 @@ module.exports = {
   async show(req, res) {
     const { sanitaryRegisterId } = req.params;
 
-    const sanitaryRegister = await SanitaryRegister.findById(sanitaryRegisterId).populate({
-      path: 'user',
-    })
-    res.status(200).json(SanitaryRegisters)
+    const sanitaryRegister = await SanitaryRegister
+      .findById(sanitaryRegisterId)
+      .populate({ path: 'user', select: 'name'})
+    
+    res.status(200).json(sanitaryRegister)
   },
   async create(req, res) {
     try {
