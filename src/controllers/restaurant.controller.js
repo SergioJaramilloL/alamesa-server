@@ -76,12 +76,7 @@ module.exports = {
     try {
       const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, req.body, { new: true })
 
-<<<<<<< HEAD
       if(!restaurant){
-=======
-      if(!req.restaurant){
-        
->>>>>>> 734680ba2cb71d1f907a5a947b8c3b916962ac9e
         throw new Error('Could not update that restaurant')
       }
 
