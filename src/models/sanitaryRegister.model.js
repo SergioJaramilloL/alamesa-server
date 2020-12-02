@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const sanitaryRegisterSchema = new Schema ({
   temperature: {
-    type: String,
+    type: Number,
     required: true,
   },
   question1SymptomsCovid: {

@@ -36,8 +36,8 @@ module.exports = {
   async update(req, res) {
     try {
       const { sanitaryRegisterId } = req.params;
-      const sanitaryRegister = await SanitaryRegister.findByIdAndUpdate(sanitaryRegisterId, req.body, { new: true })
-
+      const sanitaryRegister = await SanitaryRegister
+        .findByIdAndUpdate(sanitaryRegisterId, req.body, { new: true })
       if(!sanitaryRegister) {
         throw new Error('Could not update that sanitary register')
       }
@@ -46,5 +46,5 @@ module.exports = {
     catch(err) {
       res.status(400).json({ message: 'Sanitary register could not be updated' })
     }
-  }
+  },
 }

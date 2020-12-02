@@ -50,7 +50,6 @@ const clientSchema = new Schema ({
   sanitaryRegister: {
     type: Schema.Types.ObjectId, 
     ref: 'SanitaryRegister',
-    required: true,
   }
 },{
   timestamps: true,
