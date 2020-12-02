@@ -76,7 +76,7 @@ module.exports = {
     try{
       const client = await Client.findByIdAndUpdate( req.client, req.body, { new: true})
 
-      if(!req.client) {
+      if(!client) {
         throw new Error('Could not update that client')
       }
       res.status(200).json({ message: 'Client updated', data: client})
