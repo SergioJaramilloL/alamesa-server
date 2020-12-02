@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const sanitaryRegisterController = require('../controllers/sanitaryRegister.controller');
+const { auth } = require('../utils/auth');
 
-router.route('/').get(sanitaryRegisterController.list)
-router.route('/profile').post(sanitaryRegisterController.create);
-router.route('/:sanitaryRegisterId').get(sanitaryRegisterController.show)
+router.route('/').post(auth, sanitaryRegisterController.create);
+router.route('/:sanitaryRegisterId').get(auth, sanitaryRegisterController.show)
 
 module.exports = router

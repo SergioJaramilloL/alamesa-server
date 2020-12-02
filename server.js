@@ -17,7 +17,7 @@ app.use(cors());
 
 app.use('/clients', clientsRouter);
 app.use('/restaurants', restaurantsRouter);
-app.use('/sanitaryRegisters', sanitaryRegisterRouter);
+app.use('/sanitaryRegister', sanitaryRegisterRouter);
 
 app.get('/', auth, ( req, res ) => {
   res.sendStatus(200);

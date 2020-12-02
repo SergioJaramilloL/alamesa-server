@@ -47,7 +47,7 @@ const clientSchema = new Schema ({
   payType: {
     type: String,
   },
-  sanitaryRegisters: {
+  sanitaryRegister: {
     type: Schema.Types.ObjectId, 
     ref: 'SanitaryRegister',
     required: true,
