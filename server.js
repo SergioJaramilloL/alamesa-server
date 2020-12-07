@@ -5,6 +5,7 @@ const { connect } = require('./src/db');
 const clientsRouter = require('./src/routes/client');
 const restaurantsRouter = require('./src/routes/restaurant')
 const sanitaryRegisterRouter = require('./src/routes/sanitaryRegister');
+const reservationsRouter = require('./src/routes/reservation');
 const { auth } = require( './src/utils/auth');
 
 const port = 8080;
@@ -18,6 +19,7 @@ app.use(cors());
 app.use('/clients', clientsRouter);
 app.use('/restaurants', restaurantsRouter);
 app.use('/sanitary-register', sanitaryRegisterRouter);
+app.use('/reservations', reservationsRouter);
 
 app.get('/', auth, ( req, res ) => {
   res.sendStatus(200);
