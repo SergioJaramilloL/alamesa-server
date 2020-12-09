@@ -7,7 +7,7 @@ const restaurantsRouter = require('./src/routes/restaurant')
 const sanitaryRegisterRouter = require('./src/routes/sanitaryRegister');
 const { auth } = require( './src/utils/auth');
 
-const port = 8080;
+const port = 8000;
 
 const app = express();
 connect();
