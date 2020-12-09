@@ -1,0 +1,11 @@
+# dependencies
+node_modules/
+.vscode/
+.env
+
+# misc
+.DS_store
+
+
+yarn-error.log
+
