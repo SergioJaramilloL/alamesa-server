@@ -19,9 +19,20 @@ const reservationSchema = new Schema ({
   people: {
     type: Number,
   },
+  paymentMethod: {
+    type: String,
+  },
+  status: {
+    type: String,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'Client',
+    required: true,
+  },
+  provider: {
+    type: Schema.Types.ObjectId,
+    ref: 'Restaurant',
     required: true,
   },
 }, {
