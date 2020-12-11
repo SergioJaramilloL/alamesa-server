@@ -7,10 +7,9 @@ module.exports = {
     try {
 
       const { restaurantId } = req.params;
-      const { clientId } = req.params;
 
       const restaurant = await Restaurant.findById(restaurantId)
-      const client = await Client.findById(clientId)
+      const client = await Client.findById(req.client)
 
       if(!restaurant) {
         throw new Error('Invalid Restaurant')
@@ -35,40 +34,33 @@ module.exports = {
   },
 
   async showRestaurant(req, res) {
-    const { reservationId } = req.params;
+    try {
+      const { reservationId } = req.params;
+  
+      const reservationRestaurant = await Reservation.findById(reservationId).populate({
+        path: 'provider',
+        select: 'name',
+      })
+      
+      res.status(200).json(reservationRestaurant)
 
-    const reservationRestaurant = await Reservation.findById(reservationId).populate({
-      path: 'provider',
-      select: 'name',
-    })
-    
-    res.status(200).json(reservationRestaurant)
+    } catch(error) {
+      res.status(400).json({ message: 'Reservation not found' })
+    }
   },
 
   async showClient(req, res) {
-    const { reservationId } = req.params;
-
-    const reservationClient = await Reservation.findById(reservationId).populate({
-      path: 'user',
-      select: ['name', 'lastName', 'email', 'phone', 'identification', 'sanitaryRegister'],
-    })
-    
-    res.status(200).json(reservationClient)
-  },
-
-  async update( req, res ) {
-    try{
+    try {
       const { reservationId } = req.params;
-
-      const reservation = await Reservation.findByIdAndUpdate( reservationId, req.body, { new: true })
-
-      if(!reservation) {
-        throw new Error('Could not update that reservation')
-      }
-      res.status(200).json({ message: 'Reservation updated', data: reservation })
-
+  
+      const reservationClient = await Reservation.findById(reservationId).populate({
+        path: 'user',
+        select: ['name', 'lastName', 'email', 'phone', 'identification', 'sanitaryRegister'],
+      })
+      
+      res.status(200).json(reservationClient)
     } catch(error) {
-      res.status(400).json({ message: 'Reservation could not be updated'})
+      res.states(400).json({ message: 'Reservation not found' })
     }
   },
 
