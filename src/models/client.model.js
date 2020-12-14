@@ -50,7 +50,10 @@ const clientSchema = new Schema ({
   sanitaryRegister: {
     type: Schema.Types.ObjectId, 
     ref: 'SanitaryRegister',
-  }
+  },
+  reservations: {
+    type: [{ type: Schema.Types.ObjectId, ref: 'Reservation' }]
+  },
 },{
   timestamps: true,
 });

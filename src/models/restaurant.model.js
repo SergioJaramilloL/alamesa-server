@@ -50,6 +50,9 @@ const restaurantSchema = new Schema ({
   paymentMethod: {
     type: String,
   },
+  reservations: {
+    type: [{ type: Schema.Types.ObjectId, ref: 'Reservation' }]
+  },
 }, {
   timestamps: true,
 });

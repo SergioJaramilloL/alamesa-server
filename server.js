@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const { connect } = require('./src/db');
 const clientsRouter = require('./src/routes/client');
-const restaurantsRouter = require('./src/routes/restaurant')
+const restaurantsRouter = require('./src/routes/restaurant');
+const reservationsRouter = require('./src/routes/reservation');
 const sanitaryRegisterRouter = require('./src/routes/sanitaryRegister');
 const { auth } = require( './src/utils/auth');
 
@@ -17,6 +18,7 @@ app.use(cors());
 
 app.use('/clients', clientsRouter);
 app.use('/restaurants', restaurantsRouter);
+app.use('/reservations', reservationsRouter);
 app.use('/sanitary-register', sanitaryRegisterRouter);
 
 app.get('/', auth, ( req, res ) => {
