@@ -11,6 +11,7 @@ module.exports = {
       const restaurant = await Restaurant.findById(restaurantId)
       const client = await Client.findById(req.client)
 
+
       if(!restaurant) {
         throw new Error('Invalid Restaurant')
       }
