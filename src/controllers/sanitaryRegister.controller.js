@@ -36,9 +36,10 @@ module.exports = {
   },
   async update(req, res) {
     try {
-      const { sanitaryRegisterId } = req.params;
+      const client = await Client.findById(req.client)
+      const sanitaryRegisterId = client.sanitaryRegister
       const sanitaryRegister = await SanitaryRegister
-        .findByIdAndUpdate(sanitaryRegisterId, req.body, { new: true })
+        .findByIdAndUpdate(sanitaryRegisterId, req.body, { new: true, useFindAndModify: false, })
       if(!sanitaryRegister) {
         throw new Error('Could not update that sanitary register')
       }
