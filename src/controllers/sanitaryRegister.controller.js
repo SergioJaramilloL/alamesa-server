@@ -3,8 +3,9 @@ const Client = require('../models/client.model');
 
 module.exports = {
   async show(req, res) {
-    const { sanitaryRegisterId } = req.params;
     try {
+      const client = await Client.findById(req.client)
+      const sanitaryRegisterId = client.sanitaryRegister
       const sanitaryRegister = await SanitaryRegister
         .findById(sanitaryRegisterId)
         .populate({ path: 'user', select: 'name'})
