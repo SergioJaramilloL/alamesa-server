@@ -3,7 +3,7 @@ const sanitaryRegisterController = require('../controllers/sanitaryRegister.cont
 const { auth } = require('../utils/auth');
 
 router.route('/').post(auth, sanitaryRegisterController.create);
-router.route('/:sanitaryRegisterId').get(auth, sanitaryRegisterController.show);
-router.route('/:sanitaryRegisterId').put(auth, sanitaryRegisterController.update);
+router.route('/').get(auth, sanitaryRegisterController.show);
+router.route('/').put(auth, sanitaryRegisterController.update);
 
 module.exports = router
