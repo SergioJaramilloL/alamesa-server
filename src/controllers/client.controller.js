@@ -76,7 +76,8 @@ module.exports = {
 
   async update( req, res ) {
     try{
-      const client = await Client.findByIdAndUpdate( req.client, req.body, { new: true})
+      const client = await Client
+        .findByIdAndUpdate( req.client, req.body, { new: true, useFindAndModify: false,})
 
       if(!client) {
         throw new Error('Could not update that client')
