@@ -98,9 +98,8 @@ module.exports = {
         throw new Error('Could not delete that client')
       }
         res.status(200).json({ message: 'Cliente deleted', data:client, })
-    }catch(err) {
-        res.status(400).json({ message: 'Client could not be deleted' })
-      }
+    } catch(err) {
+      res.status(400).json({ message: 'Client could not be deleted' })
+    }
   },
-
 }
