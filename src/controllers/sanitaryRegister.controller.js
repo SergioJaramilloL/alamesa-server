@@ -15,7 +15,7 @@ module.exports = {
       res.status(200).json(sanitaryRegister)
     }
     catch(err) {
-      res.states(400).json({ message: 'Sanitary register not found'})
+      res.status(400).json({ message: 'Sanitary register not found'})
     }
   },
   async create(req, res) {
@@ -47,6 +47,21 @@ module.exports = {
     }
     catch(err) {
       res.status(400).json({ message: 'Sanitary register could not be updated' })
+    }
+  },
+  async destroy(req, res) {
+    try {
+      const client = await Client.findById(req.client)
+      const sanitaryRegisterId = client.sanitaryRegister
+      const sanitaryRegister = await SanitaryRegister
+        .findByIdAndDelete(sanitaryRegisterId)
+      if(!sanitaryRegister) {
+        throw new Error('Could not update that client')
+      }
+      res.status(200).json({ message: 'Sanitary register deleted' })
+    }
+    catch(err) {
+      res.status(400).json({ message: 'Sanitary register could not be deleted' })
     }
   },
 }
