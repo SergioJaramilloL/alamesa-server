@@ -1,6 +1,7 @@
 const Client = require('../models/client.model');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const SanitaryRegister = require('../models/sanitaryRegister.model');
 
 module.exports = {
 
@@ -90,9 +91,11 @@ module.exports = {
   async destroy( req,res ){
     try {
       const client = await Client.findByIdAndDelete(req.client)
-
-      if(!client){
-        throw new Error('Could not update Client')
+      const sanitaryRegisterId = client.sanitaryRegister
+      const sanitaryRegister = await SanitaryRegister
+        .findByIdAndDelete(sanitaryRegisterId)  
+      if(!client && !sanitaryRegister) {
+        throw new Error('Could not delete that client')
       }
         res.status(200).json({ message: 'Cliente deleted', data:client, })
     }catch(err) {
