@@ -17,10 +17,19 @@ const sanitaryRegisterSchema = new Schema ({
   question4HealthWorker: {
     type: Boolean,
   },
+  nameCompanion: {
+    type: String,
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'Client',
     required: true,
+  },
+  companion: {
+    type: [{ 
+      type: Schema.Types.ObjectId, 
+      ref: 'Companion', 
+    }],
   },
 }, {
   timestamps: true,

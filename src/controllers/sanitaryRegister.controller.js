@@ -1,5 +1,6 @@
 const SanitaryRegister = require('../models/sanitaryRegister.model');
 const Client = require('../models/client.model');
+const Companion = require('../models/companion.model');
 
 module.exports = {
   async show(req, res) {
@@ -26,6 +27,29 @@ module.exports = {
       }
       const sanitaryRegister = await SanitaryRegister.create({ ...req.body, user: client })
 
+      client.sanitaryRegister = sanitaryRegister._id;
+      await client.save({ validateBeforeSave: false })
+
+      res.status(201).json(sanitaryRegister)
+    } catch(err) {
+      res.status(400).json({ message: err.message })
+    }
+  },
+  async createCompanion(req, res) {
+    try {
+      const client = await Client.findById(req.client)
+      if(!client) {
+        throw new Error('Invalid client')
+      }
+      const { nameCompanion } = req.body
+      const companion = await Companion.create({ 
+        nameCompanion, 
+      })
+      const sanitaryRegister = await SanitaryRegister.create({
+        ...req.body,
+        user: client,
+        userCompanion: companion
+      })
       client.sanitaryRegister = sanitaryRegister._id;
       await client.save({ validateBeforeSave: false })
 
