@@ -1,6 +1,6 @@
 const SanitaryRegister = require('../models/sanitaryRegister.model');
 const Client = require('../models/client.model');
-const Companion = require('../models/companion.model');
+const Companions = require('../models/companion.model');
 
 module.exports = {
   async show(req, res) {
@@ -9,7 +9,8 @@ module.exports = {
       const sanitaryRegisterId = client.sanitaryRegister
       const sanitaryRegister = await SanitaryRegister
         .findById(sanitaryRegisterId)
-        .populate({ path: 'user', select: 'name'})
+        .populate({ path: 'user', select: 'name' })
+        .populate({ path: 'companions', select: 'nameCompanion' })
       if(!sanitaryRegister) {
         throw new Error('Sanitary register not exist')
       }
@@ -38,20 +39,20 @@ module.exports = {
   async createCompanion(req, res) {
     try {
       const client = await Client.findById(req.client)
-      if(!client) {
-        throw new Error('Invalid client')
-      }
       const { nameCompanion } = req.body
-      const companion = await Companion.create({ 
+      const companions = await Companions.create({ 
         nameCompanion, 
       })
       const sanitaryRegister = await SanitaryRegister.create({
         ...req.body,
         user: client,
-        userCompanion: companion
+        userCompanion: companions
       })
-      client.sanitaryRegister = sanitaryRegister._id;
-      await client.save({ validateBeforeSave: false })
+      
+      sanitaryRegister.companions.push(companions);
+      companions.sanitaryRegister.push(sanitaryRegister);
+
+      await companions.save({ validateBeforeSave: false })
 
       res.status(201).json(sanitaryRegister)
     } catch(err) {

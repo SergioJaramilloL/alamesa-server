@@ -1,20 +1,20 @@
 const { Schema, model } = require('mongoose');
 
-const companionSchema = new Schema ({
+const companionsSchema = new Schema ({
   nameCompanion: {
     type: String,
     required: true,
   },
   sanitaryRegister: {
-    type: { 
+    type: [{ 
       type: Schema.Types.ObjectId,
       ref: 'SanitaryRegister',
-    }
+    }]
   },
 }, {
   timestamps: true,
 });
 
-const Companion = model('Companion', companionSchema);
+const Companions = model('Companions', companionsSchema);
 
-module.exports = Companion;
+module.exports = Companions;
