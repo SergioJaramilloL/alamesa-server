@@ -1,5 +1,3 @@
-const SanitaryRegister = require('../models/sanitaryRegister.model');
-const Client = require('../models/client.model');
 const Companions = require('../models/companion.model');
 
 module.exports = {
