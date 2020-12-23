@@ -6,6 +6,7 @@ const clientsRouter = require('./src/routes/client');
 const restaurantsRouter = require('./src/routes/restaurant');
 const reservationsRouter = require('./src/routes/reservation');
 const sanitaryRegisterRouter = require('./src/routes/sanitaryRegister');
+const companionsRouter = require('./src/routes/companion');
 
 const port = 8000;
 
@@ -19,6 +20,7 @@ app.use('/clients', clientsRouter);
 app.use('/restaurants', restaurantsRouter);
 app.use('/reservations', reservationsRouter);
 app.use('/sanitary-register', sanitaryRegisterRouter);
+app.use('/companions', companionsRouter);
 
 
 app.listen(port, () => {
