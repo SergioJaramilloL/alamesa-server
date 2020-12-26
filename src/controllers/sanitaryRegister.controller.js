@@ -50,7 +50,7 @@ module.exports = {
       })
       
       sanitaryRegister.companions.push(companions);
-      companions.sanitaryRegister.push(sanitaryRegister);
+      companions.sanitaryRegister = sanitaryRegister;
 
       await companions.save({ validateBeforeSave: false })
 
