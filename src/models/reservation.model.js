@@ -35,6 +35,10 @@ const reservationSchema = new Schema ({
     ref: 'Restaurant',
     required: true,
   },
+  sanitaryRegister: {
+    type: Schema.Types.ObjectId,
+    ref: 'SanitaryRegister',
+  }
 }, {
   timestamps: true,
 });

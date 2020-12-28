@@ -1,6 +1,7 @@
 const SanitaryRegister = require('../models/sanitaryRegister.model');
 const Client = require('../models/client.model');
 const Companions = require('../models/companion.model');
+const Reservation = require('../models/reservation.model');
 
 module.exports = {
   async show(req, res) {
