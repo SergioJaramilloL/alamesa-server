@@ -62,9 +62,14 @@ module.exports = {
     try {
       const { reservationId } = req.params;
   
-      const reservationClient = await Reservation.findById(reservationId).populate({
+      const reservationClient = await Reservation.findById(reservationId)
+      .populate({
         path: 'user',
         select: ['name', 'lastName', 'email', 'phone', 'identification', 'sanitaryRegister'],
+      })
+      .populate({
+        path: 'companions',
+        select: ['nameCompanion', 'sanitaryRegister']
       })
       
       res.status(200).json(reservationClient)
