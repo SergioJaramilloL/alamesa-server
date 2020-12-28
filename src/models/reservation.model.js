@@ -38,7 +38,11 @@ const reservationSchema = new Schema ({
   sanitaryRegister: {
     type: Schema.Types.ObjectId,
     ref: 'SanitaryRegister',
-  }
+  },
+  companions: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Companions',
+  }]
 }, {
   timestamps: true,
 });

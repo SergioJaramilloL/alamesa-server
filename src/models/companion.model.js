@@ -5,12 +5,14 @@ const companionsSchema = new Schema ({
     type: String,
     required: true,
   },
-  sanitaryRegister: {
-    type: [{ 
-      type: Schema.Types.ObjectId,
-      ref: 'SanitaryRegister',
-    }]
+  sanitaryRegister: { 
+    type: Schema.Types.ObjectId,
+    ref: 'SanitaryRegister',
   },
+  reservation: {
+    type: Schema.Types.ObjectId,
+    ref: 'Reservation',
+  }
 }, {
   timestamps: true,
 });

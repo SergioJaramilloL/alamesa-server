@@ -40,6 +40,10 @@ module.exports = {
   async createCompanion(req, res) {
     try {
       const client = await Client.findById(req.client)
+      const {reservationId} = req.params;
+      console.log(reservationId)
+      const reservation = await Reservation.findById(reservationId)
+      
       const { nameCompanion } = req.body
       const companions = await Companions.create({ 
         nameCompanion, 
@@ -50,11 +54,19 @@ module.exports = {
         userCompanion: companions
       })
       
-      sanitaryRegister.companions.push(companions);
-      companions.sanitaryRegister.push(sanitaryRegister);
+      const sanitaryRegisterId = client.sanitaryRegister
+      const sanitaryRegisteruser = await SanitaryRegister.findById(sanitaryRegisterId)
+      sanitaryRegisteruser.companions.push(companion)
+      
+      companion.sanitaryRegister = sanitaryRegister;
+      
+      reservation.companions.push(companion)
 
-      await companions.save({ validateBeforeSave: false })
+      companion.reservation = reservation
 
+      await sanitaryRegisteruser.save({ validateBeforeSave: false })
+      await companion.save({ validateBeforeSave: false })
+      await reservation.save({ validateBeforeSave: false })
       res.status(201).json(sanitaryRegister)
     } catch(err) {
       res.status(400).json({ message: err.message })
