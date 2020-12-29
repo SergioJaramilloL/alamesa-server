@@ -5,11 +5,9 @@ const companionsSchema = new Schema ({
     type: String,
     required: true,
   },
-  sanitaryRegister: {
-    type: [{ 
+  sanitaryRegister: { 
       type: Schema.Types.ObjectId,
       ref: 'SanitaryRegister',
-    }]
   },
 }, {
   timestamps: true,
