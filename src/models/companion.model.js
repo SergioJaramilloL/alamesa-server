@@ -12,7 +12,7 @@ const companionsSchema = new Schema ({
   reservation: {
     type: Schema.Types.ObjectId,
     ref: 'Reservation',
-  }
+  },
 }, {
   timestamps: true,
 });
