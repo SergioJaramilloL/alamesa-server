@@ -8,7 +8,7 @@ const reservationsRouter = require('./src/routes/reservation');
 const sanitaryRegisterRouter = require('./src/routes/sanitaryRegister');
 const companionsRouter = require('./src/routes/companion');
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 const app = express();
 connect();
