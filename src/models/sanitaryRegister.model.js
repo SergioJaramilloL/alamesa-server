@@ -25,8 +25,7 @@ const sanitaryRegisterSchema = new Schema ({
     ref: 'Client',
     required: true,
   },
-  companions: {
-    type: [{ 
+  companions: [{ 
       type: Schema.Types.ObjectId, 
       ref: 'Companions', 
     }],

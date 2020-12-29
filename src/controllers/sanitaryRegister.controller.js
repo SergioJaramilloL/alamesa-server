@@ -45,13 +45,12 @@ module.exports = {
       const reservation = await Reservation.findById(reservationId)
       
       const { nameCompanion } = req.body
-      const companions = await Companions.create({ 
+      const companion = await Companions.create({ 
         nameCompanion, 
       })
       const sanitaryRegister = await SanitaryRegister.create({
         ...req.body,
         user: client,
-        userCompanion: companions
       })
       
       const sanitaryRegisterId = client.sanitaryRegister
@@ -67,6 +66,7 @@ module.exports = {
       await sanitaryRegisteruser.save({ validateBeforeSave: false })
       await companion.save({ validateBeforeSave: false })
       await reservation.save({ validateBeforeSave: false })
+      
       res.status(201).json(sanitaryRegister)
     } catch(err) {
       res.status(400).json({ message: err.message })
