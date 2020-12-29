@@ -18,4 +18,4 @@ module.exports = {
       res.status(404).json({ message: 'Companions not found' })
     }
   },
- };
+};
