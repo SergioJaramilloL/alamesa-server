@@ -1,6 +1,7 @@
 const SanitaryRegister = require('../models/sanitaryRegister.model');
 const Client = require('../models/client.model');
 const Companions = require('../models/companion.model');
+const Reservation = require('../models/reservation.model');
 
 module.exports = {
   async show(req, res) {
@@ -39,6 +40,10 @@ module.exports = {
   async createCompanion(req, res) {
     try {
       const client = await Client.findById(req.client)
+      
+      const {reservationId} = req.params;
+      const reservation = await Reservation.findById(reservationId)
+      
       const { nameCompanion } = req.body
       const companion = await Companions.create({ 
         nameCompanion, 
@@ -54,8 +59,14 @@ module.exports = {
       
       companion.sanitaryRegister = sanitaryRegister;
       
+      reservation.companions.push(companion)
+
+      companion.reservation = reservation
+
       await sanitaryRegisteruser.save({ validateBeforeSave: false })
       await companion.save({ validateBeforeSave: false })
+      await reservation.save({ validateBeforeSave: false })
+      
       res.status(201).json(sanitaryRegister)
     } catch(err) {
       res.status(400).json({ message: err.message })

@@ -1,6 +1,7 @@
 const Reservation = require('../models/reservation.model');
 const Restaurant = require('../models/restaurant.model');
 const Client = require('../models/client.model');
+const SanitaryRegister = require('../models/sanitaryRegister.model');
 
 module.exports = {
   async create(req, res) {
@@ -24,10 +25,17 @@ module.exports = {
 
       restaurant.reservations.push(reservation);
       client.reservations.push(reservation);
+      
+      const sanitaryRegisterId = client.sanitaryRegister
+      const sanitaryRegister = await SanitaryRegister.findById(sanitaryRegisterId)
+      sanitaryRegister.reservations.push(reservation)
+
+      reservation.sanitaryRegister = sanitaryRegister
 
       await restaurant.save({ validateBeforeSave: false })
       await client.save({ validateBeforeSave: false })
-
+      await sanitaryRegister.save({ validateBeforeSave: false })
+    
       res.status(201).json(reservation)
     } catch(error) {
       res.status(400).json({ message: error.message })
@@ -54,9 +62,14 @@ module.exports = {
     try {
       const { reservationId } = req.params;
   
-      const reservationClient = await Reservation.findById(reservationId).populate({
+      const reservationClient = await Reservation.findById(reservationId)
+      .populate({
         path: 'user',
         select: ['name', 'lastName', 'email', 'phone', 'identification', 'sanitaryRegister'],
+      })
+      .populate({
+        path: 'companions',
+        select: ['nameCompanion', 'sanitaryRegister']
       })
       
       res.status(200).json(reservationClient)

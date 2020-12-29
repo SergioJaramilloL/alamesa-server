@@ -6,8 +6,12 @@ const companionsSchema = new Schema ({
     required: true,
   },
   sanitaryRegister: { 
-      type: Schema.Types.ObjectId,
-      ref: 'SanitaryRegister',
+    type: Schema.Types.ObjectId,
+    ref: 'SanitaryRegister',
+  },
+  reservation: {
+    type: Schema.Types.ObjectId,
+    ref: 'Reservation',
   },
 }, {
   timestamps: true,
