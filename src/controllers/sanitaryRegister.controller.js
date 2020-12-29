@@ -40,8 +40,8 @@ module.exports = {
   async createCompanion(req, res) {
     try {
       const client = await Client.findById(req.client)
+      
       const {reservationId} = req.params;
-      console.log(reservationId)
       const reservation = await Reservation.findById(reservationId)
       
       const { nameCompanion } = req.body
