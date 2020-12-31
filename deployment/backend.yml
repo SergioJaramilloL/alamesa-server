@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alamesabackenddeployment
+spec:
+  selector:
+    matchLabels:
+      app: alamesabackendlabel
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: alamesabackendlabel
+    spec:
+      containers:
+        - name: alamesabackend
+          imagePullPolicy: Never
+          image: alamesa-backend 
+          ports:
+            - containerPort: 8000
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://alamesadatabaseservice:27017/alamesa'
