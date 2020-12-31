@@ -1,6 +1,7 @@
 const Client = require('../models/client.model');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const SanitaryRegister = require('../models/sanitaryRegister.model');
 
 module.exports = {
 
@@ -62,7 +63,6 @@ module.exports = {
   async show( req, res ) {
     try {
       const client = await Client.findById( req.client )
-
       if(!client) {
         throw new Error('Client not found')
       }
@@ -75,7 +75,8 @@ module.exports = {
 
   async update( req, res ) {
     try{
-      const client = await Client.findByIdAndUpdate( req.client, req.body, { new: true})
+      const client = await Client
+        .findByIdAndUpdate( req.client, req.body, { new: true, useFindAndModify: false,})
 
       if(!client) {
         throw new Error('Could not update that client')
@@ -90,14 +91,15 @@ module.exports = {
   async destroy( req,res ){
     try {
       const client = await Client.findByIdAndDelete(req.client)
-
-      if(!client){
-        throw new Error('Could not update Client')
+      const sanitaryRegisterId = client.sanitaryRegister
+      const sanitaryRegister = await SanitaryRegister
+        .findByIdAndDelete(sanitaryRegisterId)  
+      if(!client && !sanitaryRegister) {
+        throw new Error('Could not delete that client')
       }
-        res.status(200).json({ message: 'Cliente deleted', data:client, })
-    }catch(err) {
-        res.status(400).json({ message: 'Client could not be deleted' })
-      }
+        res.status(200).json({ message: 'Client deleted', data:client, })
+    } catch(err) {
+      res.status(400).json({ message: 'Client could not be deleted' })
+    }
   },
-
 }
