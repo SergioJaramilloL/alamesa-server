@@ -7,6 +7,7 @@ const restaurantsRouter = require('./src/routes/restaurant');
 const reservationsRouter = require('./src/routes/reservation');
 const sanitaryRegisterRouter = require('./src/routes/sanitaryRegister');
 const companionsRouter = require('./src/routes/companion');
+const menuRouter = require('./src/routes/menu');
 
 const port = process.env.PORT || 8000;
 
@@ -21,6 +22,7 @@ app.use('/restaurants', restaurantsRouter);
 app.use('/reservations', reservationsRouter);
 app.use('/sanitary-register', sanitaryRegisterRouter);
 app.use('/companions', companionsRouter);
+app.use('/menu', menuRouter);
 
 
 app.listen(port, () => {
