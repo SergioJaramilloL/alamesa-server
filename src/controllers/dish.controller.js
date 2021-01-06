@@ -1,4 +1,3 @@
-const { create, update } = require('../models/dish.model');
 const Dish = require('../models/dish.model');
 const Menu = require('../models/menu.model');
 const Restaurant = require('../models/restaurant.model');
@@ -42,6 +41,7 @@ module.exports = {
       if(!dish) {
         throw new Error('Could not update that dish')
       }
+      
       res.status(200).json({ message: 'Dish updated', data: dish })
     } catch(err) {
       res.status(400).json({ message: 'Dish could not be updated' })
