@@ -4,34 +4,32 @@ const Restaurant = require('../models/restaurant.model');
 
 module.exports = {
 
-  async create(req, res, next) {
+  async create(req, res) {
     try {
-      const restaurant = await Restaurant.findById(req.restaurant)
+      const restaurant = await Restaurant.findById(req.restaurant).populate('menu')
       if(!restaurant) {
         throw new Error('Invalid restaurant')
       }
-
       let menu = restaurant.menu
       let dish;
       if(!menu) {
         menu = await Menu.create({
           provider: restaurant,
         })
-        console.log('here a new menu because dont exist', menu)
-        dish = await Dish.create({ ...req.body, menuList: menu })
-        console.log('here created dish', dish)
-      } 
+        
+        dish = await Dish.create({ ...req.body, menuList: menu._id })
+        
+        menu.dishes.push(dish);
+        await menu.save({ validateBeforeSave: false })
+        
+        restaurant.menu = menu._id;
+        await restaurant.save({ validateBeforeSave: false })
+      }
       else {
         dish = await Dish.create({ ...req.body, menuList: menu })
-        console.log('here created dish', dish)
-        menu.dishes.push(dish);         
-        console.log(menu)
+        menu.dishes.push(dish);
+        await menu.save({ validateBeforeSave: false })
       }
-      
-      restaurant.menu = menu;
-      menu.dishes.push(dish); 
-      await menu.save({ validateBeforeSave: false })
-      await restaurant.save({ validateBeforeSave: false })
       res.status(201).json(dish)
     } catch(err) {
       res.status(400).json({ message: err.message })
