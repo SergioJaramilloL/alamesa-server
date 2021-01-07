@@ -16,7 +16,7 @@ const dishSchema = new Schema ({
   image: {
     type: String,
   },
-  menu: {
+  menuList: {
     type: Schema.Types.ObjectId,
     ref:'Menu',
     required: true,

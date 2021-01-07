@@ -6,7 +6,7 @@ const menuSchema = new Schema ({
     ref: 'Restaurant',
     required: true,
   },
-  dish: {
+  dishes: {
     type: [{ type: Schema.Types.ObjectId, ref: 'Dish' }]
   },
 }, {
