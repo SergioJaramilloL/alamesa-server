@@ -42,6 +42,7 @@ module.exports = {
 
       const dish = await Dish
         .findByIdAndUpdate(dishId, req.body, { new: true, useFindAndModify: false, })
+      
       if(!dish) {
         throw new Error('Could not update that dish')
       }
@@ -49,6 +50,23 @@ module.exports = {
       res.status(200).json({ message: 'Dish updated', data: dish })
     } catch(err) {
       res.status(400).json({ message: 'Dish could not be updated' })
+    }
+  },
+
+  async destroy(req, res) {
+    try {
+      const { dishId } = req.params;
+
+      const dish = await Dish
+        .findByIdAndDelete(dishId)
+      
+      if(!dish) {
+        throw new Error('Could not delete that dish')
+      }
+      
+      res.status(200).json({ message: 'Dish deleted', data: dish })
+    } catch(err) {
+      res.status(400).json({ message: 'Dish could not be deleted' })
     }
   },
 }
