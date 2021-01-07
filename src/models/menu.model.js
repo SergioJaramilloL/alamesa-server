@@ -7,7 +7,10 @@ const menuSchema = new Schema ({
     required: true,
   },
   dishes: {
-    type: [{ type: Schema.Types.ObjectId, ref: 'Dish' }]
+    type: [{ 
+      type: Schema.Types.ObjectId, 
+      ref: 'Dish' 
+    }]
   },
 }, {
   timestamps: true,
