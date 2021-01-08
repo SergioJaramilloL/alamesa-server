@@ -53,6 +53,10 @@ const restaurantSchema = new Schema ({
   reservations: {
     type: [{ type: Schema.Types.ObjectId, ref: 'Reservation' }]
   },
+  menu: {
+    type: Schema.Types.ObjectId,
+    ref: 'Menu',
+  },
 }, {
   timestamps: true,
 });
