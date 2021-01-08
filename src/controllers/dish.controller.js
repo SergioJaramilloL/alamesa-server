@@ -30,6 +30,7 @@ module.exports = {
         menu.dishes.push(dish);
         await menu.save({ validateBeforeSave: false })
       }
+      console.log(req.body)
       res.status(201).json(dish)
     } catch(err) {
       res.status(400).json({ message: err.message })
