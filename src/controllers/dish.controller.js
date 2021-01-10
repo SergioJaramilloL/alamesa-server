@@ -7,6 +7,7 @@ module.exports = {
   async create(req, res) {
     try {
       const restaurant = await Restaurant.findById(req.restaurant).populate('menu')
+      const { file: { secure_url }} = req.body
       if(!restaurant) {
         throw new Error('Invalid restaurant')
       }
@@ -17,7 +18,7 @@ module.exports = {
           provider: restaurant,
         })
         
-        dish = await Dish.create({ ...req.body, menuList: menu._id })
+        dish = await Dish.create({ ...req.body, file: secure_url, menuList: menu._id })
         
         menu.dishes.push(dish);
         await menu.save({ validateBeforeSave: false })
@@ -26,11 +27,10 @@ module.exports = {
         await restaurant.save({ validateBeforeSave: false })
       }
       else {
-        dish = await Dish.create({ ...req.body, menuList: menu })
+        dish = await Dish.create({ ...req.body, file: secure_url, menuList: menu._id })
         menu.dishes.push(dish);
         await menu.save({ validateBeforeSave: false })
       }
-      console.log(req.body)
       res.status(201).json(dish)
     } catch(err) {
       res.status(400).json({ message: err.message })
@@ -68,6 +68,20 @@ module.exports = {
       res.status(200).json({ message: 'Dish deleted', data: dish })
     } catch(err) {
       res.status(400).json({ message: 'Dish could not be deleted' })
+    }
+  },
+
+  async show(req, res) {
+    try{
+      const { dishId } = req.params;
+
+      const dish = await Dish.findById(dishId)
+      if(!dish) {
+        throw new Error('Dish not exist')
+      }
+      res.status(200).json({ message: 'Dish found', data: dish })
+    } catch(error) {
+      res.status(400).json({ message: error.message })
     }
   },
 }
