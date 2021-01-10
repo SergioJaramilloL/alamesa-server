@@ -13,7 +13,7 @@ const dishSchema = new Schema ({
   category: {
     type: String,
   },
-  image: {
+  file: {
     type: String,
   },
   menuList: {
