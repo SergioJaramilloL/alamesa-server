@@ -76,9 +76,11 @@ module.exports = {
       const { dishId } = req.params;
 
       const dish = await Dish.findById(dishId)
+
       if(!dish) {
         throw new Error('Dish not exist')
       }
+      
       res.status(200).json({ message: 'Dish found', data: dish })
     } catch(error) {
       res.status(400).json({ message: error.message })
