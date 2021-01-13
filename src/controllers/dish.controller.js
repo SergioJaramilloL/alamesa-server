@@ -7,7 +7,7 @@ module.exports = {
   async create(req, res) {
     try {
       const restaurant = await Restaurant.findById(req.restaurant).populate('menu')
-      const { file: { secure_url }} = req.body
+      const { file, ...rest } = req.body
       if(!restaurant) {
         throw new Error('Invalid restaurant')
       }
@@ -17,8 +17,8 @@ module.exports = {
         menu = await Menu.create({
           provider: restaurant,
         })
-        
-        dish = await Dish.create({ ...req.body, file: secure_url, menuList: menu._id })
+      
+        dish = await Dish.create({ ...rest, file: file ? file.secure_url : '', menuList: menu._id })
         
         menu.dishes.push(dish);
         await menu.save({ validateBeforeSave: false })
@@ -27,7 +27,7 @@ module.exports = {
         await restaurant.save({ validateBeforeSave: false })
       }
       else {
-        dish = await Dish.create({ ...req.body, file: secure_url, menuList: menu._id })
+        dish = await Dish.create({ ...rest, file: file ? file.secure_url : '', menuList: menu._id })
         menu.dishes.push(dish);
         await menu.save({ validateBeforeSave: false })
       }
@@ -41,8 +41,12 @@ module.exports = {
     try {
       const { dishId } = req.params;
 
+      const { file, ...rest } = req.body
+
+      const update= { ...rest, file: file ? file.secure_url : '' }
+        
       const dish = await Dish
-        .findByIdAndUpdate(dishId, req.body, { new: true, useFindAndModify: false, })
+        .findByIdAndUpdate(dishId, update, { new: true, useFindAndModify: false, })
       
       if(!dish) {
         throw new Error('Could not update that dish')
