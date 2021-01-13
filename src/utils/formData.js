@@ -34,7 +34,6 @@ formData = (req, res, next) => {
       { upload_preset: 'menu-preset' },
       (err, res) => {
         if (err) throw new Error('Something went wrong! try again')
-
         req.body[key] = res
         uploadingFile = false
         uploadingCount--
@@ -43,22 +42,18 @@ formData = (req, res, next) => {
     )
     
     file.on('data', data => {
-      console.log(data)
       stream.write(data)
     })
 
     file.on('end', () => {
-      console.log('finish')
       stream.end()
     })
-
-    req.pipe(busboy)
   })
-
+  
   busboy.on('finish', () => {
     done()
   })
-
+  
   req.pipe(busboy)
 }
 

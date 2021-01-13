@@ -9,7 +9,7 @@ module.exports = {
       const menu = await Menu.findById(menuId)
         .populate({ 
           path: 'dishes', 
-          select: 'nameDish price description category image' })
+          select: 'nameDish price description category file' })
 
       res.status(201).json(menu)
     } catch(error) {
