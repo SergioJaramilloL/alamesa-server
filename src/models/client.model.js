@@ -44,7 +44,7 @@ const clientSchema = new Schema ({
   birthday: {
     type: Date,
   },
-  payType: {
+  idType: {
     type: String,
   },
   sanitaryRegister: {
