@@ -11,7 +11,8 @@ module.exports = {
 
       const restaurant = await Restaurant.findById(restaurantId)
       const client = await Client.findById(req.client)
-
+      const sanitaryRegisterId = client.sanitaryRegister
+      const sanitaryRegister = await SanitaryRegister.findById(sanitaryRegisterId)
 
       if(!restaurant) {
         throw new Error('Invalid Restaurant')
@@ -21,21 +22,22 @@ module.exports = {
         throw new Error('Invalid Client')
       }
 
-      const reservation = await Reservation.create({ ...req.body, provider: restaurant, user: client})
+      if(!sanitaryRegister) {
+        throw new Error('Invalid Sanitary Register')
+      }
 
-      restaurant.reservations.push(reservation);
-      client.reservations.push(reservation);
-      
-      const sanitaryRegisterId = client.sanitaryRegister
-      const sanitaryRegister = await SanitaryRegister.findById(sanitaryRegisterId)
-      sanitaryRegister.reservations.push(reservation)
+      const reservation = await Reservation.create({ ...req.body, provider: restaurant._id, user: client._id})
 
-      reservation.sanitaryRegister = sanitaryRegister
-
+      restaurant.reservations.push(reservation._id);
       await restaurant.save({ validateBeforeSave: false })
+
+      client.reservations.push(reservation._id);
       await client.save({ validateBeforeSave: false })
+
+      sanitaryRegister.reservations.push(reservation._id)
       await sanitaryRegister.save({ validateBeforeSave: false })
-    
+      reservation.sanitaryRegister = sanitaryRegister._id
+
       res.status(201).json(reservation)
     } catch(error) {
       res.status(400).json({ message: error.message })
