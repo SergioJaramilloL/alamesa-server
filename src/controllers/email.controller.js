@@ -10,8 +10,6 @@ module.exports = {
 
       const client = await models.Client.findOne({ email });
 
-      console.log(client)
-
       if ( client === null ) throw new Error('el email no existe en alamesa')
 
       const token = jwt.sign(
