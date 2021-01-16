@@ -102,4 +102,25 @@ module.exports = {
       res.status(400).json({ message: 'Client could not be deleted' })
     }
   },
+
+  async showReservationClient ( req, res ){
+    try{
+      const client = await Client.findById( req.client)
+      .populate({
+        path: 'reservations',
+        select: ['date', 'time'],
+        populate:{
+          path: 'provider',
+          select: ['name','address'],
+        }
+      })
+      if(!client){
+        throw new Error('Reservation data not found')
+      }
+      res.status(200).json({ message: 'Reservation data found', data: client })
+    }
+    catch(error){
+      res.status(404).json({ message: 'Reservation data not found' })
+    }
+  },
 }
