@@ -15,7 +15,7 @@ exports.transporter = nodemailer.createTransport({
 exports.verify = async (transporter) => {
   const connection = await transporter.verify()
   if(connection){
-    console.log('Server is ready to take our message')
+    console.log('Server SMTP is ready to take our message')
   }
 }
 
