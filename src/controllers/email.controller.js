@@ -26,13 +26,13 @@ module.exports = {
 
   async resetpass( req, res ) {
     try {
-      const { passwordConfirm } = req.body;
+      const { newPassword } = req.body;
       const email = req.email;
       const client = await models.Client.findOne({ email })
 
       if ( client === null ) throw new Error('No existe cliente con ese correo en alamesa')
 
-      const encPassword = await bcrypt.hash( passwordConfirm, 8)
+      const encPassword = await bcrypt.hash( newPassword, 8)
 
       await models.Client.findByIdAndUpdate( client._id, { password: encPassword }, { new: true, useFindAndModify: false,})
 
