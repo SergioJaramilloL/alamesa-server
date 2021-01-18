@@ -8,5 +8,6 @@ router.route('/').get(restaurantController.list);
 router.route('/profile').get(auth, restaurantController.show);
 router.route('/').put(auth, restaurantController.update);
 router.route('/').delete(auth, restaurantController.destroy);
+router.route('/reservations').get(auth, restaurantController.showReservationRestaurant);
 
 module.exports = router;
