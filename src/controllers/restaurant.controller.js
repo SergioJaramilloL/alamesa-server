@@ -116,7 +116,7 @@ module.exports = {
         },
       })
       if(!restaurant) {
-        throw new Error('No reservations could not be found')
+        throw new Error('No reservations were found')
       }
       res.status(200).json({ message: 'Reservations found', data: restaurant })
     }
