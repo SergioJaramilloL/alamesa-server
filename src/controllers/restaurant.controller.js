@@ -99,5 +99,30 @@ module.exports = {
       res.status(400).json({ message: 'Restaurant could not be deleted' })
     }
   },
-}
 
+  async showReservationRestaurant (req,res) {
+    try {
+      const restaurant = await Restaurant.findById(req.restaurant)
+      .populate({
+        path: 'reservations',
+        select: ['date', 'time', 'range','people','status','companions'],
+        populate: {
+          path: 'user',
+          select: ['name', 'phone'],
+          populate: {
+            path: 'sanitaryRegister',
+            select: ['temperature', 'question1SymptomsCovid', 'question2ContactWithPeople', 'question3InternationalTravel', 'question4HealthWorker', 'nameCompanion'],
+          },
+        },
+      })
+      if(!restaurant) {
+        throw new Error('No reservations were found')
+      }
+      res.status(200).json({ message: 'Reservations found', data: restaurant })
+    }
+    catch {
+      res.status(404).json({ message: 'No reservations were found'})
+    }
+  }
+
+}
