@@ -2,7 +2,6 @@
 node_modules/
 .vscode/
 .env
-package.json
 yarn.lock
 
 # misc
