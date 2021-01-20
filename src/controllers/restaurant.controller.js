@@ -108,7 +108,7 @@ module.exports = {
         select: ['date', 'time', 'range','people','status','companions'],
         populate: {
           path: 'user',
-          select: ['name', 'phone'],
+          select: ['name', 'lastName', 'phone'],
           populate: {
             path: 'sanitaryRegister',
             select: ['temperature', 'question1SymptomsCovid', 'question2ContactWithPeople', 'question3InternationalTravel', 'question4HealthWorker', 'nameCompanion'],
