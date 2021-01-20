@@ -7,13 +7,18 @@ const bcrypt = require('bcrypt')
 module.exports = {
   async recoverypass( req, res ) {
     try {
-      const { email } = req.body;
-      const client = await models.Client.findOne({ email });
+      let user = ''
+      const { email, userType } = req.body;
+      if(userType === 'clients'){
+        user = await models.Client.findOne({ email });
+      } else {
+        user = await models.Restaurant.findOne({ email });
+      }
 
-      if ( client === null ) throw new Error('el email no existe en alamesa')
+      if ( user === null ) throw new Error('el email no existe en alamesa')
 
       const token = jwt.sign(
-        { email },
+        { email, userType },
         process.env.SECRET,
         { expiresIn: 60*60*1 }
       );
@@ -26,15 +31,27 @@ module.exports = {
 
   async resetpass( req, res ) {
     try {
-      const { newPassword } = req.body;
+      let user = ''
+      req.client
+      req.restaurant
+      const { newPassword, userType } = req.body;
       const email = req.email;
-      const client = await models.Client.findOne({ email })
 
-      if ( client === null ) throw new Error('No existe cliente con ese correo en alamesa')
+      if(userType === 'clients'){
+        user = await models.Client.findOne({ email });
+      } else {
+        user = await models.Restaurant.findOne({ email });
+      }
+
+      if ( user === null ) throw new Error('No existe cliente con ese correo en alamesa')
 
       const encPassword = await bcrypt.hash( newPassword, 8)
 
-      await models.Client.findByIdAndUpdate( client._id, { password: encPassword }, { new: true, useFindAndModify: false,})
+      if(userType === 'clients'){
+        await models.Client.findByIdAndUpdate( user._id, { password: encPassword }, { new: true, useFindAndModify: false,})
+      } else {
+        await models.Restaurant.findByIdAndUpdate( user._id, { password: encPassword }, { new: true, useFindAndModify: false,})
+      }
 
       res.status(201).json({ message: 'cambio de contraseña exitoso' })
     }catch(error) {
