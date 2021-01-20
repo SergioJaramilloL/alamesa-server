@@ -43,7 +43,7 @@ module.exports = {
 
       const { file, ...rest } = req.body
 
-      const update= { ...rest, file: file ? file.secure_url : '' }
+      const update= { ...rest, file: file ? file.secure_url || file : '' }
         
       const dish = await Dish
         .findByIdAndUpdate(dishId, update, { new: true, useFindAndModify: false, })
