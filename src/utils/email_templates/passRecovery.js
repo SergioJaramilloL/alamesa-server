@@ -8,7 +8,7 @@ exports.recoveryPassword = (email, token) => {
     html: `
       <div>
         <h1>Cambio de contraseña</h1>
-        <a href="{${url}}/password-reset/${token}">Recuperar constraseña</a>
+        <a href="${url}/password-reset/${token}">Recuperar constraseña</a>
       </div>
     `,
     text: `
