@@ -7,7 +7,8 @@ router.route('/sign-up').post(restaurantController.signup);
 router.route('/sign-in').post(restaurantController.signin);
 router.route('/').get(restaurantController.list);
 router.route('/profile').get(auth, restaurantController.show);
-router.route('/').put(auth, formData, restaurantController.update);
+router.route('/').put(auth, restaurantController.update);
+router.route('/update-logo').put(auth, formData, restaurantController.updateLogo);
 router.route('/').delete(auth, restaurantController.destroy);
 router.route('/reservations').get(auth, restaurantController.showReservationRestaurant);
 
