@@ -1,3 +1,4 @@
+const url = process.env.URL_FRONT || 'http://localhost:8080';
 
 exports.recoveryPassword = (email, token) => {
   return {
@@ -7,7 +8,7 @@ exports.recoveryPassword = (email, token) => {
     html: `
       <div>
         <h1>Cambio de contraseña</h1>
-        <a href="http://localhost:8080/password-reset/${token}">Recuperar constraseña</a>
+        <a href="${url}/password-reset/${token}">Recuperar constraseña</a>
       </div>
     `,
     text: `
