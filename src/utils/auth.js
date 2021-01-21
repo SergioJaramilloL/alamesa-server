@@ -16,7 +16,9 @@ exports.auth = ( req, res, next ) =>{
       req.client = id
     }
     else { req.restaurant = id }
-    req.email = email
+    req.body['email'] = email
+    req.body['userType'] = userType
+    
     next();
   }
   catch(err){
