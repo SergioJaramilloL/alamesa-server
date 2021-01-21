@@ -32,10 +32,7 @@ module.exports = {
   async resetpass( req, res ) {
     try {
       let user = ''
-      req.client
-      req.restaurant
-      const { newPassword, userType } = req.body;
-      const email = req.email;
+      const { newPassword, userType, email } = req.body;
 
       if(userType === 'clients'){
         user = await models.Client.findOne({ email });
