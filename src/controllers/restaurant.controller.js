@@ -74,7 +74,11 @@ module.exports = {
 
   async update( req, res ){
     try {
-      const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, req.body, { new: true })
+      console.log('entre al update', req.body)
+      //const {file: { secure_url }} = req.body
+      //console.log('vamo aver: ',secure_url)
+      const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, req.body, { new: true, useFindAndModify: false} )
+      console.log(restaurant)
 
       if(!restaurant){
         throw new Error('Could not update that restaurant')
