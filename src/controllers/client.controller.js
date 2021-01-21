@@ -108,7 +108,7 @@ module.exports = {
       const client = await Client.findById( req.client)
       .populate({
         path: 'reservations',
-        select: ['date', 'time'],
+        select: ['status','date', 'time'],
         populate:{
           path: 'provider',
           select: ['name','address'],
