@@ -29,7 +29,6 @@ restaurantLogo = (req, res, next) => {
   busboy.on('file', (key, file) => {
     uploadingFile = true
     uploadingCount++
-    console.log('por ac estoy w')
 
     const stream = cloudinary.uploader.upload_stream(
       { upload_preset: 'Restaurant_Logo' },
