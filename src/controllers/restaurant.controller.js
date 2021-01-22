@@ -89,7 +89,7 @@ module.exports = {
   async updateLogo( req, res ){
     try {
       const { file:{ secure_url } } = req.body
-      const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, { image: secure_url }, { new: true, useFindAndModify: false} )
+      const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, { logo: secure_url }, { new: true, useFindAndModify: false} )
 
       if(!restaurant){
         throw new Error('Could not update that restaurant')

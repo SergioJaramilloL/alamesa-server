@@ -21,7 +21,7 @@ const restaurantSchema = new Schema ({
       message: 'El correo ya está en uso',
     }
   },
-  image: {
+  logo: {
     type: String,
   },
   password: {
