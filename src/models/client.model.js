@@ -24,6 +24,9 @@ const clientSchema = new Schema ({
       message: 'El correo ya está en uso',
     }
   },
+  image: {
+    type: String,
+  },
   password: {
     type: String,
     required: true,
