@@ -74,7 +74,22 @@ module.exports = {
 
   async update( req, res ){
     try {
-      const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, req.body, { new: true })
+      const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, req.body , { new: true, useFindAndModify: false} )
+
+      if(!restaurant){
+        throw new Error('Could not update that restaurant')
+      }
+
+      res.status(200).json({ message: 'Restaurant updated', data: restaurant })
+    } catch(error) {
+      res.status(400).json({ message: 'Restaurant could not be updated'} )
+    }
+  },
+
+  async updateLogo( req, res ){
+    try {
+      const { file:{ secure_url } } = req.body
+      const restaurant = await Restaurant.findByIdAndUpdate( req.restaurant, { logo: secure_url }, { new: true, useFindAndModify: false} )
 
       if(!restaurant){
         throw new Error('Could not update that restaurant')
