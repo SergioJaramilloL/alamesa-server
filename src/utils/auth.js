@@ -16,8 +16,8 @@ exports.auth = ( req, res, next ) =>{
       req.client = id
     }
     else { req.restaurant = id }
-    req.body['email'] = email
-    req.body['userType'] = userType
+    if(email)req.body['email'] = email
+    if(userType)req.body['userType'] = userType
     
     next();
   }
