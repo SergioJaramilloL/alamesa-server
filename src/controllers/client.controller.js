@@ -88,6 +88,22 @@ module.exports = {
     }
   },
 
+  async updateImage( req, res ) {
+    try{
+      const { file:{ secure_url } } = req.body
+      const client = await Client
+        .findByIdAndUpdate( req.client, { image: secure_url }, { new: true, useFindAndModify: false,})
+
+      if(!client) {
+        throw new Error('Could not update image')
+      }
+      res.status(200).json({ message: 'Image client updated', data: client})
+
+    } catch(error) {
+      res.status(400).json({ message: 'Image client could not be updated'})
+    }
+  },
+  
   async destroy( req,res ){
     try {
       const client = await Client.findByIdAndDelete(req.client)
