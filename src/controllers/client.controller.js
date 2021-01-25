@@ -127,7 +127,7 @@ module.exports = {
         select: ['status','date', 'time'],
         populate:{
           path: 'provider',
-          select: ['name','address'],
+          select: ['name','address','logo'],
         }
       })
       if(!client){
